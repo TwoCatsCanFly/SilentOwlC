@@ -49,6 +49,7 @@ def connection_as_client(sender):
             info_msg(f'Соединение успешно')
             connection_as_client_status = True
             client_hand(sender)
+            send_nickname(sender,'G-man')
             return True
         except Exception as err:
             logging.info('Connection fail')
@@ -59,8 +60,12 @@ def connection_as_client(sender):
             return False
     else: info_msg('Соединение уже установлено')
 
+def start_sequence(sender):
+    connection_as_client(sender)
+
+
 def connection_as_client_func_handler():
-    t = threading.Thread(target=connection_as_client, args=[sender])
+    t = threading.Thread(target=start_sequence, args=[sender])
     t.start()
 
 def chat_msg_formatter(txt,nickname=None,info=False):
@@ -150,7 +155,7 @@ delete_button.grid(row=0,column=0)
 my_button2 = Button(frame_for_controls, text='Test CONNECTION', command=connection_as_client_func_handler)    #lambda: connection(sender))
 my_button2.grid(row=0,column=1)
 
-my_button2 = Button(frame_for_controls, text='Test Handshake', command=lambda: client_hand(sender))
+my_button2 = Button(frame_for_controls, text='Test Nick Exchange')
 my_button2.grid(row=0,column=2)
 
 global input_box
