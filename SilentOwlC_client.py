@@ -125,6 +125,12 @@ def write_msg():
 def callback(event):
     write_to_chat()
 
+def decomposer_test():
+    i = decomposer()
+    for p in i:
+        b = chat_msg_formatter(f'{p}:{i[p]}',None,True)
+        chat_listbox.insert(END, b)
+
 root = Tk()
 root.title('SOwlC Client')
 root.geometry('500x800')
@@ -155,8 +161,11 @@ delete_button.grid(row=0,column=0)
 my_button2 = Button(frame_for_controls, text='Test CONNECTION', command=connection_as_client_func_handler)    #lambda: connection(sender))
 my_button2.grid(row=0,column=1)
 
-my_button2 = Button(frame_for_controls, text='Test Nick Exchange')
-my_button2.grid(row=0,column=2)
+my_button3 = Button(frame_for_controls, text='Test talk', command=lambda: want_to_talk(sender))
+my_button3.grid(row=0,column=2)
+
+my_button4 = Button(frame_for_controls, text='Test Decomposer', command=lambda: decomposer_test())
+my_button4.grid(row=0,column=3)
 
 global input_box
 input_box = Entry(frame_for_input,width=70,borderwidth='10')
